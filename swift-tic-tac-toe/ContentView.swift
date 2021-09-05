@@ -35,6 +35,9 @@ struct ContentView: View {
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(.white)
                         }.onTapGesture {
+                            if isSquareOccupied(in: moves, forIndex: i) {
+                                return
+                            }
                             moves[i] = Move(player: isHumanTurn ? .human : .computer, boardIndex: i)
                             isHumanTurn.toggle()
                         }
@@ -43,6 +46,12 @@ struct ContentView: View {
                 Spacer()
             }.padding()
         }
+    }
+    
+    func isSquareOccupied(in moves: [Move?], forIndex index: Int) -> Bool {
+        return moves.contains(where: {
+            $0?.boardIndex == index
+        })
     }
 }
 
