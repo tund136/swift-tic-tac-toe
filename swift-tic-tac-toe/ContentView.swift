@@ -15,6 +15,7 @@ struct ContentView: View {
     ]
     
     @State private var moves: [Move?] = Array(repeating: nil, count: 9)
+    @State private var isGameBoardDisabled = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -38,17 +39,21 @@ struct ContentView: View {
                                 return
                             }
                             moves[i] = Move(player: .human, boardIndex: i)
+                            isGameBoardDisabled = true
                             
                             // Check for win condition or draw
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 let computerPosition = determineComputerMovePosition(in: moves)
                                 moves[computerPosition] = Move(player: .computer, boardIndex: computerPosition)
+                                isGameBoardDisabled = false
                             }
                         }
                     }
                 })
                 Spacer()
-            }.padding()
+            }
+            .disabled(isGameBoardDisabled)
+            .padding()
         }
     }
     
