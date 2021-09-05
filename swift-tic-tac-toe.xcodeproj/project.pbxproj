@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		ADB36E4026E4670500F94744 /* swift_tic_tac_toeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB36E3F26E4670500F94744 /* swift_tic_tac_toeApp.swift */; };
-		ADB36E4226E4670500F94744 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB36E4126E4670500F94744 /* ContentView.swift */; };
+		ADB36E4226E4670500F94744 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB36E4126E4670500F94744 /* GameView.swift */; };
 		ADB36E4426E4670600F94744 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADB36E4326E4670600F94744 /* Assets.xcassets */; };
 		ADB36E4726E4670600F94744 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADB36E4626E4670600F94744 /* Preview Assets.xcassets */; };
 		ADB36E4F26E4BA1A00F94744 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB36E4E26E4BA1A00F94744 /* Alerts.swift */; };
+		ADB36E5126E4C35600F94744 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB36E5026E4C35600F94744 /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ADB36E3C26E4670500F94744 /* swift-tic-tac-toe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-tic-tac-toe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB36E3F26E4670500F94744 /* swift_tic_tac_toeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_tic_tac_toeApp.swift; sourceTree = "<group>"; };
-		ADB36E4126E4670500F94744 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ADB36E4126E4670500F94744 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		ADB36E4326E4670600F94744 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADB36E4626E4670600F94744 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ADB36E4826E4670600F94744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADB36E4E26E4BA1A00F94744 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		ADB36E5026E4C35600F94744 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				ADB36E3F26E4670500F94744 /* swift_tic_tac_toeApp.swift */,
-				ADB36E4126E4670500F94744 /* ContentView.swift */,
+				ADB36E4126E4670500F94744 /* GameView.swift */,
 				ADB36E4E26E4BA1A00F94744 /* Alerts.swift */,
+				ADB36E5026E4C35600F94744 /* GameViewModel.swift */,
 				ADB36E4326E4670600F94744 /* Assets.xcassets */,
 				ADB36E4826E4670600F94744 /* Info.plist */,
 				ADB36E4526E4670600F94744 /* Preview Content */,
@@ -141,7 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADB36E4226E4670500F94744 /* ContentView.swift in Sources */,
+				ADB36E5126E4C35600F94744 /* GameViewModel.swift in Sources */,
+				ADB36E4226E4670500F94744 /* GameView.swift in Sources */,
 				ADB36E4F26E4BA1A00F94744 /* Alerts.swift in Sources */,
 				ADB36E4026E4670500F94744 /* swift_tic_tac_toeApp.swift in Sources */,
 			);

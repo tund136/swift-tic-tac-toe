@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  GameViewModel.swift
 //  swift-tic-tac-toe
 //
 //  Created by Danh Tu on 05/09/2021.
@@ -7,82 +7,53 @@
 
 import SwiftUI
 
-struct ContentView: View {
+final class GameViewModel: ObservableObject {
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    @State private var moves: [Move?] = Array(repeating: nil, count: 9)
-    @State private var isGameBoardDisabled = false
-    @State private var alertItem: AlertItem?
+    @Published var moves: [Move?] = Array(repeating: nil, count: 9)
+    @Published var isGameBoardDisabled = false
+    @Published var alertItem: AlertItem?
     
-    var body: some View {
-        GeometryReader { geometry in
+    func processPlayerMove(for position: Int) {
+        
+        // Human move processing
+        if isSquareOccupied(in: moves, forIndex: position) {
+            return
+        }
+        moves[position] = Move(player: .human, boardIndex: position)
+        
+        // Check for win condition or draw
+        if checkWinCondition(for: .human, in: moves) {
+            alertItem = AlertContext.humanWin
+            return
+        }
+        
+        if checkForDraw(in: moves) {
+            alertItem = AlertContext.draw
+            return
+        }
+        
+        isGameBoardDisabled = true
+        
+        // Computer move processing
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            let computerPosition = determineComputerMovePosition(in: moves)
+            moves[computerPosition] = Move(player: .computer, boardIndex: computerPosition)
+            isGameBoardDisabled = false
             
-            VStack {
-                Spacer()
-                LazyVGrid(columns: columns, spacing: 10, content: {
-                    ForEach(0..<9) { i in
-                        ZStack {
-                            Circle()
-                                .foregroundColor(.red)
-                                .opacity(0.5)
-                                .frame(width: geometry.size.width/3 - 20, height: geometry.size.width/3 - 20)
-                            
-                            Image(systemName: moves[i]?.indicator ?? "")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.white)
-                        }.onTapGesture {
-                            if isSquareOccupied(in: moves, forIndex: i) {
-                                return
-                            }
-                            moves[i] = Move(player: .human, boardIndex: i)
-                            
-                            // Check for win condition or draw
-                            if checkWinCondition(for: .human, in: moves) {
-                                alertItem = AlertContext.humanWin
-                                return
-                            }
-                            
-                            if checkForDraw(in: moves) {
-                                alertItem = AlertContext.draw
-                                return
-                            }
-                            
-                            isGameBoardDisabled = true
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                let computerPosition = determineComputerMovePosition(in: moves)
-                                moves[computerPosition] = Move(player: .computer, boardIndex: computerPosition)
-                                isGameBoardDisabled = false
-                                
-                                if checkWinCondition(for: .computer, in: moves) {
-                                    alertItem = AlertContext.computerWin
-                                    return
-                                }
-                                
-                                if checkForDraw(in: moves) {
-                                    alertItem = AlertContext.draw
-                                    return
-                                }
-                            }
-                        }
-                    }
-                })
-                Spacer()
+            if checkWinCondition(for: .computer, in: moves) {
+                alertItem = AlertContext.computerWin
+                return
             }
-            .disabled(isGameBoardDisabled)
-            .padding()
-            .alert(item: $alertItem, content: { alertItem in
-                Alert(
-                    title: alertItem.title,
-                    message: alertItem.message,
-                    dismissButton: .default(alertItem.buttonTitle, action: { resetGame() })
-                )
-            })
+            
+            if checkForDraw(in: moves) {
+                alertItem = AlertContext.draw
+                return
+            }
         }
     }
     
@@ -208,24 +179,5 @@ struct ContentView: View {
     
     func resetGame() {
         moves = Array(repeating: nil, count: 9)
-    }
-}
-
-enum Player {
-    case human, computer
-}
-
-struct Move {
-    let player: Player
-    let boardIndex: Int
-    
-    var indicator: String {
-        return player == .human ? "xmark" : "circle"
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
